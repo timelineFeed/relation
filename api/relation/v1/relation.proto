@@ -1,0 +1,50 @@
+syntax = "proto3";
+
+package relation.v1;
+
+import "google/api/annotations.proto";
+
+option go_package = "relation/api/relation/v1;v1";
+
+service Relation {
+  rpc Follow(FollowRequest) returns (FollowerListReply) {}
+  rpc UnFollow(UnFollowRequest) returns (UnFollowReply) {}
+  rpc Followers(FollowerListRequest) returns (FollowerListReply) {}
+  rpc Following(FollowingListRequest) returns (FollowingListRequest) {}
+}
+
+message FollowRequest {
+  RelationShip ship = 1;
+}
+message FollowReply {}
+
+message UnFollowRequest {
+  RelationShip ship = 1;
+}
+message UnFollowReply {}
+
+message FollowingListRequest {
+  uint64 user_id = 1;
+}
+message FollowingListReply {
+  repeated UserInfo user_list = 1;
+}
+
+message FollowerListRequest {
+  uint64  user_id = 1;
+}
+message FollowerListReply {
+  repeated  UserInfo user_list = 1;
+}
+
+message RelationShip {
+  uint64 from_user_id = 1;
+  uint64 to_user_id = 2;
+  uint32 type = 3;
+}
+
+message UserInfo {
+  uint64 user_id = 1;
+  uint64 image = 2;
+}
+
